@@ -47,8 +47,8 @@ public class AttributeModelExporter {
 	 * @param path path to file
 	 * @throws FileNotFoundException
 	 */
-	public void exportToFile(String path) throws FileNotFoundException{
-		PrintWriter pw = new PrintWriter(path);
+	public void exportToFile(Path path) throws FileNotFoundException{
+		PrintWriter pw = new PrintWriter(path.toString());
 		pw.print(exportModel());
 		pw.close();
 	}

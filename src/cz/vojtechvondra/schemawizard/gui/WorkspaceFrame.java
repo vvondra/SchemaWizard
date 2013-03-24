@@ -1,15 +1,14 @@
-package cz.vojtechvondra.schemawizard;
+package cz.vojtechvondra.schemawizard.gui;
+
+import cz.vojtechvondra.schemawizard.AttributeModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
 
 /**
  * Hlavní okno pro práci se schématy
  */
-public class SchemaWizardGUI {
+public class WorkspaceFrame {
 
 	/**
 	 * Active window
@@ -26,10 +25,10 @@ public class SchemaWizardGUI {
 	 */
 	AttributeModel currentModel;
 
-	public SchemaWizardGUI() {
+	public WorkspaceFrame() {
 	}
 
-	protected void create() {
+	public void create() {
 
 		window = new JFrame("SchemaWizard");
 		window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -45,7 +44,7 @@ public class SchemaWizardGUI {
 	}
 
 	protected JToolBar createToolbar() {
-		return new SchemaWizardGUIToolbar(this);
+		return new WorkspaceToolbar(this);
 	}
 
 	protected void updateWindowTitle(String title) {

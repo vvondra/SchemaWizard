@@ -52,7 +52,9 @@ public class SchemaWizardGUI {
 		newButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				clearWorkspace();
+				if (confirmDiscardModifications()) {
+					clearWorkspace();
+				}
 			}
 		});
 		bar.add(newButton);
@@ -90,6 +92,15 @@ public class SchemaWizardGUI {
 		currentModelName = "Untitled";
 		currentModel = new AttributeModel();
 		updateWindowTitle(currentModelName);
+	}
+
+	protected boolean confirmDiscardModifications() {
+		if (currentModel != null) {
+			int dialogResult = JOptionPane.showConfirmDialog(window, "Do you want to discard current changes?", "Warning", JOptionPane.YES_NO_OPTION);
+			return dialogResult == JOptionPane.YES_OPTION;
+		}
+
+		return true;
 	}
 
 

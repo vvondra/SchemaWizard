@@ -1,11 +1,27 @@
 package cz.vojtechvondra.schemawizard.gui;
 
+import cz.vojtechvondra.schemawizard.Attribute;
+
+import javax.swing.*;
+import java.util.Arrays;
+import java.util.HashSet;
+
 /**
- * Created with IntelliJ IDEA.
- * User: Vojta
- * Date: 24.3.13
- * Time: 14:42
- * To change this template use File | Settings | File Templates.
+ * JList extension working with attribute lists from the AttributeModel
  */
-public class AttributeList {
+public class AttributeList extends JList<Attribute> {
+
+	public AttributeList(HashSet<Attribute> attributes) {
+		setAttributes(attributes);
+	}
+
+	public void setAttributes(HashSet<Attribute> attributes) {
+		Attribute[] as = new Attribute[attributes.size()];
+		int i = 0;
+		for (Attribute a : attributes) {
+			as[i++] = a;
+		}
+		Arrays.sort(as);
+		setListData(as);
+	}
 }

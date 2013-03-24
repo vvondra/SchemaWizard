@@ -4,7 +4,7 @@ package cz.vojtechvondra.schemawizard;
  * Data attribute
  * Can represent a column in a database later on
  */
-public class Attribute {
+public class Attribute implements Comparable<Attribute> {
 
 	/**
 	 * Display name of attribute
@@ -18,6 +18,8 @@ public class Attribute {
 		}
 	}
 
+	protected Attribute() {}
+
 	@Override
 	public String toString() {
 		return name;
@@ -30,13 +32,17 @@ public class Attribute {
 
 		Attribute attribute = (Attribute) o;
 
-		if (name != null ? !name.equals(attribute.name) : attribute.name != null) return false;
+		return !(name != null ? !name.equals(attribute.name) : attribute.name != null);
 
-		return true;
 	}
 
 	@Override
 	public int hashCode() {
 		return name != null ? name.hashCode() : 0;
+	}
+
+	@Override
+	public int compareTo(Attribute o) {
+		return name.compareTo(o.name);
 	}
 }

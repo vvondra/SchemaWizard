@@ -5,11 +5,11 @@ import java.util.Iterator;
 
 /**
  * A collection of attributes and functional dependencies
- * Depenendency rules may contain additional implied attributes
+ * Dependency rules may contain additional implied attributes
  */
 public class AttributeModel {
-	HashSet<Attribute> attributes;
-	HashSet<FunctionalDependency> deps;
+	public HashSet<Attribute> attributes;
+	public HashSet<FunctionalDependency> deps;
 
 	public AttributeModel() {
 		this.attributes = new HashSet<Attribute>();
@@ -57,7 +57,7 @@ public class AttributeModel {
 	/**
 	 * Checks if functional dependency is redundant
 	 * @param dep Dependency to test
-	 * @return true if dependency is redudnant
+	 * @return true if dependency is redundant
 	 */
 	public boolean isDependencyRedundant(FunctionalDependency dep) {
 		HashSet<FunctionalDependency> tempdeps = new HashSet<FunctionalDependency>(deps);

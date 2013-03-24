@@ -6,7 +6,7 @@ import java.util.HashSet;
  * Dependency rule
  * Attributes on the left side of the rule fully specify all the attributes on the right side
  */
-public class FunctionalDependency {
+public class FunctionalDependency implements Comparable<FunctionalDependency> {
 
 	/**
 	 * Left side of dependency rule
@@ -64,5 +64,10 @@ public class FunctionalDependency {
 		sb.deleteCharAt(sb.length() - 1);
 
 		return sb.toString();
+	}
+
+	@Override
+	public int compareTo(FunctionalDependency o) {
+		return toString().compareTo(o.toString());
 	}
 }

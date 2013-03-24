@@ -42,9 +42,7 @@ public class WorkspaceToolbar extends JToolBar {
 					File file = fc.getSelectedFile();
 
 					try {
-						gui.currentModel = AttributeModelExporter.loadModelFromFile(file.toPath());
-						gui.currentModelName = file.getName();
-						gui.updateWindowTitle(gui.currentModelName);
+						gui.setActiveModel(AttributeModelExporter.loadModelFromFile(file.toPath()), file.getName());
 					} catch (Exception ex) {
 						JOptionPane.showMessageDialog(new JFrame(), "Error during opening of schema file:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 					}
@@ -66,6 +64,7 @@ public class WorkspaceToolbar extends JToolBar {
 					try {
 						AttributeModelExporter exporter = new AttributeModelExporter(gui.currentModel);
 						exporter.exportToFile(file.toPath());
+						gui.currentModelName = file.getName();
 					} catch (Exception ex) {
 						JOptionPane.showMessageDialog(new JFrame(), "Error saving schema:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 					}

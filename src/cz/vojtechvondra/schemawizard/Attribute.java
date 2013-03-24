@@ -13,6 +13,9 @@ public class Attribute {
 
 	public Attribute(String name) {
 		this.name = name.replaceAll("\\s","");
+		if (!name.matches("[A-Za-z0-9]+")) {
+			throw new IllegalArgumentException("Invalid attribute name, it can contain only letters or numbers");
+		}
 	}
 
 	@Override

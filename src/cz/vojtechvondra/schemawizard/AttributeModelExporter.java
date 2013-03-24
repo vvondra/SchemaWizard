@@ -1,10 +1,15 @@
 package cz.vojtechvondra.schemawizard;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Scanner;
 
+/**
+ * Handles importing and exporting attribute models from plaintext dumps
+ */
 public class AttributeModelExporter {
 
 	/**
@@ -54,13 +59,13 @@ public class AttributeModelExporter {
 	 * @return Reconstructed model with attributes and dependencies
 	 */
 	public static AttributeModel loadModelFromString(String dump) {
-		AttributeModel model = new AttributeModel();
 		String[] lines = dump.split("\n");
 
 		HashSet<Attribute> attribs = new HashSet<Attribute>();
 		HashSet<FunctionalDependency> deps = new HashSet<FunctionalDependency>();
 		boolean inAttribs = true;
 		for (String line : lines) {
+			line = line.replace("\r", "");
 			if (line.equals(dumpSeparator)) {
 				inAttribs = false;
 				continue;
@@ -96,7 +101,7 @@ public class AttributeModelExporter {
 	 * @param path Path to dumped model
 	 * @return Reconstructed model with attributes and dependencies
 	 */
-	public static AttributeModel loadModelFromFile(String path) {
+	public static AttributeModel loadModelFromFile(Path path) throws IOException {
 		Scanner sc = new Scanner(path);
 		String content = sc.useDelimiter("\\Z").next();
 		if (sc.ioException() != null) {

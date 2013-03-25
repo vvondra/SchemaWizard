@@ -134,13 +134,26 @@ public class WorkspaceFrame implements ActionListener {
 		return dataPanel;
 	}
 
+	/**
+	 * Creates bottom panel containing tools to work with the schema
+	 * @return JPanel with available features
+	 */
 	protected JPanel createToolPanel() {
 		JPanel toolPanel = new JPanel();
 		toolPanel.setLayout(new FlowLayout());
 
-		toolPanel.add(new JButton("Redundant attributes"));
-		toolPanel.add(new JButton("Redundant dependencies"));
-		toolPanel.add(new JButton("Detect keys"));
+		JButton redundantAttributesButton = new JButton("Remove all redundant attributes");
+		redundantAttributesButton.setActionCommand("REDUNDANT_ATTRS");
+		toolPanel.add(redundantAttributesButton);
+		JButton redundantDepsButton = new JButton("Select next redundant dependency");
+		redundantDepsButton.setActionCommand("REDUNDANT_DEPS");
+		toolPanel.add(redundantDepsButton);
+		JButton findKeysButton = new JButton("Find key");
+		toolPanel.add(findKeysButton);
+
+		findKeysButton.addActionListener(this);
+		redundantAttributesButton.addActionListener(this);
+		redundantDepsButton.addActionListener(this);
 
 		return toolPanel;
 	}
@@ -177,6 +190,9 @@ public class WorkspaceFrame implements ActionListener {
 
 	}
 
+	/**
+	 * Updates the lists with current data from the model
+	 */
 	protected void refreshWorkspace() {
 		attrList.setAttributes(currentModel.attributes);
 		depList.setDependencies(currentModel.deps);
@@ -241,6 +257,54 @@ public class WorkspaceFrame implements ActionListener {
 		if (event.getActionCommand().equals("Add dependency")) {
 			JDialog d = new AddDependencyDialog(this);
 			d.setVisible(true);
+		}
+
+		if (event.getActionCommand().equals("Find key")) {
+			HashSet<Attribute> key = currentModel.findModelKey();
+
+
+			if (key.size() > 0) {
+				StringBuilder keyText = new StringBuilder();
+				for (Attribute a : key) {
+					keyText.append(" ").append(a);
+				}
+				JOptionPane.showMessageDialog(window, keyText, "Key for model", JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(window, "Model does not have a key.", "Key for model", JOptionPane.INFORMATION_MESSAGE);
+			}
+		}
+
+		if (event.getActionCommand().equals("REDUNDANT_DEPS")) {
+			boolean found = false;
+			for (FunctionalDependency dep : currentModel.deps) {
+				if (currentModel.isDependencyRedundant(dep)) {
+					depList.setSelectedValue(dep, true);
+					found = true;
+				}
+			}
+
+			if (!found) {
+				JOptionPane.showMessageDialog(window, "No redundant dependency in model", "Message", JOptionPane.INFORMATION_MESSAGE);
+			}
+		}
+
+		if (event.getActionCommand().equals("REDUNDANT_ATTRS")) {
+			int dialogResult = JOptionPane.showConfirmDialog(window, "This will remove attributes from left hand sides of depenedencies, are you sure?", "Warning", JOptionPane.YES_NO_OPTION);
+			if (dialogResult == JOptionPane.YES_OPTION) {
+				boolean found = false;
+				for (FunctionalDependency dep : currentModel.deps) {
+					int count = dep.left.size();
+					dep = currentModel.getReducedDependency(dep);
+					if (count > dep.left.size()) {
+						found = true;
+					}
+				}
+				refreshWorkspace();
+
+				if (!found) {
+					JOptionPane.showMessageDialog(window, "No redundant attributes in left hand sides of rules.", "Message", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
 		}
 	}
 

@@ -115,7 +115,7 @@ public class AddDependencyDialog extends JDialog {
 		}
 
 		// remove all attributes which would define themselves
-		right.removeAll(left);
+		//right.removeAll(left);
 
 		if (left.size() > 0 && right.size() > 0) {
 			gui.currentModel.deps.add(new FunctionalDependency(left, right));

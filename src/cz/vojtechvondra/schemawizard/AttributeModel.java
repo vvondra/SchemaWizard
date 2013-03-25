@@ -98,4 +98,16 @@ public class AttributeModel {
 		return dep2;
 	}
 
+	/**
+	 * Find a key for the model
+	 * A key is a set of attributes which define all other attributes
+	 *
+	 * Works by creating a dependency from the full attribute set to the full attribute set and removing redundant attributes from the left side
+	 * @return a set of attributes making a key
+	 */
+	public HashSet<Attribute> findModelKey() {
+		FunctionalDependency dep = getReducedDependency(new FunctionalDependency(attributes, attributes));
+		return dep.left;
+	}
+
 }

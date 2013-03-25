@@ -11,12 +11,12 @@ public class FunctionalDependency implements Comparable<FunctionalDependency> {
 	/**
 	 * Left side of dependency rule
 	 */
-	HashSet<Attribute> left;
+	public HashSet<Attribute> left;
 
 	/**
 	 * Right side of dependency rule
 	 */
-	HashSet<Attribute> right;
+	public HashSet<Attribute> right;
 
 	/**
 	 * Creates empty functional dependency

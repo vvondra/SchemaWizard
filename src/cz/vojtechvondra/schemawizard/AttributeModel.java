@@ -85,7 +85,7 @@ public class AttributeModel {
 	 * @return Copy of the rule with the reduced left side
 	 */
 	public FunctionalDependency getReducedDependency(FunctionalDependency dep) {
-		FunctionalDependency dep2 = new FunctionalDependency(dep.left, dep.right);
+		FunctionalDependency dep2 = new FunctionalDependency(new HashSet<Attribute>(dep.left), new HashSet<Attribute>(dep.right));
 		HashSet<Attribute> toRemove = new HashSet<Attribute>();
 		for (Attribute a : dep2.left) {
 			if (isAttributeRedundantInDependency(a, dep2)) {

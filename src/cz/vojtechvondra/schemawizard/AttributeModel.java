@@ -6,6 +6,8 @@ import java.util.Iterator;
 /**
  * A collection of attributes and functional dependencies
  * Dependency rules may contain additional implied attributes
+ *
+ * Contains several algorithms for determining properties of a database schema
  */
 public class AttributeModel {
 	public HashSet<Attribute> attributes;

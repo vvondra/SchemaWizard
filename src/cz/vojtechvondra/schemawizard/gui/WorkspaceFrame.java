@@ -114,6 +114,9 @@ public class WorkspaceFrame implements ActionListener {
 		return dataPanel;
 	}
 
+	/**
+	 * Bottom panel or dependency list
+	 */
 	protected JPanel createDependencyEditPanel() {
 		// Create a panel to hold all other components
 		JPanel dataPanel = new JPanel();

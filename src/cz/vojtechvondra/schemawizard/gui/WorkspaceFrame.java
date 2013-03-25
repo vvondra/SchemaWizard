@@ -82,7 +82,7 @@ public class WorkspaceFrame implements ActionListener {
 
 		frameContent.add(createToolPanel(), BorderLayout.SOUTH);
 
-		window.setSize(600, 400);
+		window.setSize(750, 400);
 		window.setLocation(200, 200);
 		window.setVisible(true);
 
@@ -150,7 +150,11 @@ public class WorkspaceFrame implements ActionListener {
 		toolPanel.add(redundantDepsButton);
 		JButton findKeysButton = new JButton("Find key");
 		toolPanel.add(findKeysButton);
+		JButton bcnfButton = new JButton("BCNF decomposition");
+		bcnfButton.setActionCommand("BCNF");
+		toolPanel.add(bcnfButton);
 
+		bcnfButton.addActionListener(this);
 		findKeysButton.addActionListener(this);
 		redundantAttributesButton.addActionListener(this);
 		redundantDepsButton.addActionListener(this);
@@ -305,6 +309,10 @@ public class WorkspaceFrame implements ActionListener {
 					JOptionPane.showMessageDialog(window, "No redundant attributes in left hand sides of rules.", "Message", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
+		}
+
+		if (event.getActionCommand().equals("BCNF")) {
+			DecompositionFrame frame = new DecompositionFrame(currentModel);
 		}
 	}
 

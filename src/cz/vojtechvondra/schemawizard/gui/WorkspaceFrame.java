@@ -266,12 +266,8 @@ public class WorkspaceFrame implements ActionListener {
 		if (event.getActionCommand().equals("Find key")) {
 			HashSet<Attribute> key = currentModel.findModelKey();
 
-
 			if (key.size() > 0) {
-				StringBuilder keyText = new StringBuilder();
-				for (Attribute a : key) {
-					keyText.append(" ").append(a);
-				}
+				String keyText = Attribute.hashSetToString(key);
 				JOptionPane.showMessageDialog(window, keyText, "Key for model", JOptionPane.INFORMATION_MESSAGE);
 			} else {
 				JOptionPane.showMessageDialog(window, "Model does not have a key.", "Key for model", JOptionPane.INFORMATION_MESSAGE);

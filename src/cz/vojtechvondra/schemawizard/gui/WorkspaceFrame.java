@@ -52,8 +52,10 @@ public class WorkspaceFrame implements ActionListener {
 
 		window = new JFrame("SchemaWizard");
 		window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		Container frameContent = window.getContentPane();
+		ImageIcon icon = new ImageIcon(getClass().getResource("icon.png"));
+		window.setIconImage(icon.getImage());
 
+		Container frameContent = window.getContentPane();
 		frameContent.setLayout(new BorderLayout());
 		frameContent.add(createToolbar(), BorderLayout.NORTH);
 

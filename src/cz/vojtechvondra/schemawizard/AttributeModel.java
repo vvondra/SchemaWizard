@@ -105,7 +105,7 @@ public class AttributeModel {
 	}
 
 	/**
-	 * Find a key for the model
+	 * Find a key (random) for the model
 	 * A key is a set of attributes which define all other attributes
 	 *
 	 * Works by creating a dependency from the full attribute set to the full attribute set and removing redundant attributes from the left side
@@ -114,6 +114,72 @@ public class AttributeModel {
 	public HashSet<Attribute> findModelKey() {
 		FunctionalDependency dep = getReducedDependency(new FunctionalDependency(attributes, attributes));
 		return dep.left;
+	}
+
+	/**
+	 * Find all the keys for the model
+	 * A key is a set of attributes which define all other attributes
+	 *
+	 * Works by creating a dependency from the full attribute set to the full attribute set and removing redundant attributes from the left side
+	 * @return a set of attributes making a key
+	 */
+	public Vector<HashSet<Attribute>> findAllModelKeys() {
+		Vector<HashSet<Attribute>> keys = new Vector<HashSet<Attribute>>();
+
+		HashSet<Attribute> key = findModelKey();
+		keys.add(key);
+		boolean done = false;
+		while (!done) {
+			done = true;
+			for (FunctionalDependency dep : deps) {
+				HashSet<Attribute> rightSideCopy = new HashSet<Attribute>(dep.right);
+				rightSideCopy.retainAll(key); // Remove the last key from the right side of the rule and see if something stays
+				HashSet<Attribute> rest = new HashSet<Attribute>(key);
+				rest.addAll(dep.left);
+				rest.removeAll(dep.right);
+				if (!rightSideCopy.isEmpty()) {
+					boolean availableKey = true;
+					for (HashSet<Attribute> k : keys) {
+						if (rest.containsAll(k)) {
+							availableKey = false;
+						}
+					}
+					if (availableKey) {
+						AttributeModel tmp = new AttributeModel(new HashSet<Attribute>(rest), new HashSet<FunctionalDependency>(deps));
+						FunctionalDependency dp = new FunctionalDependency(rest, attributes);
+						FunctionalDependency r = tmp.getReducedDependency(dp);
+						keys.add(r.left);
+						key = r.left;
+						done = false;
+					}
+
+				}
+			}
+		}
+
+		return keys;
+	}
+
+	/**
+	 * Checks whether relation is in Boyce-Codd Normal Form
+	 * @return true if in BCNF
+	 */
+	public boolean isInBCNF() {
+		Vector<HashSet<Attribute>> keys = findAllModelKeys();
+		// To be in BCNF, every left side of a dependency rule must be a key!
+		for (FunctionalDependency d : deps) {
+			boolean isKey = false;
+			for (HashSet<Attribute> key : keys) {
+				if (d.left.containsAll(key)) {
+					isKey = true;
+					break;
+				}
+			}
+			if (!isKey) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }

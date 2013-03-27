@@ -186,4 +186,58 @@ public class AttributeModelTest {
 		FunctionalDependency reduced = schema.getReducedDependency(fa);
 		assertEquals(reduced.left.size(), 1);
 	}
+
+	@Test
+	public void testFindAllKeys() throws Exception {
+		Attribute c = new Attribute("C");
+		Attribute s = new Attribute("S");
+		Attribute j = new Attribute("J");
+		Attribute q = new Attribute("Q");
+		Attribute d = new Attribute("D");
+		Attribute p = new Attribute("P");
+		Attribute v = new Attribute("V");
+		FunctionalDependency fa = FunctionalDependency.fromString("C -> S J Q D P V");
+		FunctionalDependency fb = FunctionalDependency.fromString("S D -> P");
+		FunctionalDependency fc = FunctionalDependency.fromString("P -> D");
+		FunctionalDependency fd = FunctionalDependency.fromString("J P -> C");
+		FunctionalDependency fe = FunctionalDependency.fromString("J -> S");
+
+		HashSet<Attribute> attributes = new HashSet<Attribute>();
+		attributes.addAll(Arrays.asList(c,s, j, q, d,p,v));
+		HashSet<FunctionalDependency> deps = new HashSet<FunctionalDependency>();
+		deps.addAll(Arrays.asList(fa, fb, fc, fd, fe));
+
+		AttributeModel schema = new AttributeModel(attributes, deps);
+
+		Vector<HashSet<Attribute>> keys = schema.findAllModelKeys();
+		assertEquals(3, keys.size());
+	}
+
+	@Test
+	public void testFindUniversalRuleKey() throws Exception {
+		Attribute c = new Attribute("C");
+		Attribute s = new Attribute("S");
+		Attribute j = new Attribute("J");
+		Attribute q = new Attribute("Q");
+		Attribute d = new Attribute("D");
+		Attribute p = new Attribute("P");
+		Attribute v = new Attribute("V");
+		FunctionalDependency fa = FunctionalDependency.fromString("C -> S J Q D P V");
+		FunctionalDependency fb = FunctionalDependency.fromString("S D -> P");
+		FunctionalDependency fc = FunctionalDependency.fromString("P -> D");
+		FunctionalDependency fd = FunctionalDependency.fromString("J P -> C");
+		FunctionalDependency fe = FunctionalDependency.fromString("J -> S");
+
+		HashSet<Attribute> attributes = new HashSet<Attribute>();
+		attributes.addAll(Arrays.asList(c,s, j, q, d,p,v));
+		HashSet<FunctionalDependency> deps = new HashSet<FunctionalDependency>();
+		deps.addAll(Arrays.asList(fa, fb, fc, fd, fe));
+
+
+		AttributeModel schema = new AttributeModel(attributes, deps);
+
+		HashSet<Attribute> key = schema.findModelKey();
+		assertEquals(1, key.size());
+	}
+
 }

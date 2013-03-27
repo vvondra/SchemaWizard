@@ -30,4 +30,11 @@ public class FunctionalDependencyTest {
 
 		assertEquals("A B -> D C", dep.toString());
 	}
+
+	@Test
+	public void testFromString() throws Exception {
+		FunctionalDependency dep = FunctionalDependency.fromString("A B C -> D E F G");
+		assertEquals(3, dep.left.size());
+		assertEquals(dep.right.size(), 4);
+	}
 }

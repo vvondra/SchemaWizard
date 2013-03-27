@@ -1,5 +1,8 @@
 package cz.vojtechvondra.schemawizard;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 /**
  * Data attribute
  * Can represent a column in a database later on
@@ -12,10 +15,28 @@ public class Attribute implements Comparable<Attribute> {
 	String name;
 
 	public Attribute(String name) {
-		this.name = name.replaceAll("\\s","");
+		name = name.replaceAll("\\s","");
 		if (!name.matches("[A-Za-z0-9]+")) {
-			throw new IllegalArgumentException("Invalid attribute name, it can contain only letters or numbers");
+			throw new IllegalArgumentException("Invalid attribute name " + name + ", it can contain only letters or numbers");
 		}
+
+		this.name = name;
+	}
+
+	public static String hashSetToString(HashSet<Attribute> hs) {
+		StringBuilder keyText = new StringBuilder();
+		Attribute[] as = new Attribute[hs.size()];
+		int i = 0;
+		for (Attribute a : hs) {
+			as[i++] = a;
+		}
+
+		Arrays.sort(as);
+		for (Attribute a : as) {
+			keyText.append(a).append(" ");
+		}
+
+		return keyText.toString();
 	}
 
 	protected Attribute() {}

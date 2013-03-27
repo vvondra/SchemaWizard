@@ -70,4 +70,24 @@ public class FunctionalDependency implements Comparable<FunctionalDependency> {
 	public int compareTo(FunctionalDependency o) {
 		return toString().compareTo(o.toString());
 	}
+
+	public static FunctionalDependency fromString(String s) {
+		String[] parts = s.split("\\s->\\s");
+		if (parts.length != 2) {
+			throw new IllegalArgumentException("Invalid functional dependency notation.");
+		}
+		HashSet<Attribute> left = new HashSet<Attribute>();
+		HashSet<Attribute> right = new HashSet<Attribute>();
+		String[] as = parts[0].split("\\s");
+		for (String a : as) {
+			left.add(new Attribute(a));
+		}
+
+		as = parts[1].split("\\s");
+		for (String a : as) {
+			right.add(new Attribute(a));
+		}
+
+		return new FunctionalDependency(left, right);
+	}
 }

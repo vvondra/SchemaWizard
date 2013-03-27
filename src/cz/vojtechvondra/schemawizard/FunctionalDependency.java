@@ -47,6 +47,15 @@ public class FunctionalDependency implements Comparable<FunctionalDependency> {
 		right.add(a);
 	}
 
+	/**
+	 * Checks if dependency contains only selected attributes
+	 * @param attrs Attributes from which the dep rule must be constructed
+	 * @return true if the rule contains only selected attributes
+	 */
+	public boolean isValidOnAttributes(HashSet<Attribute> attrs) {
+		return attrs.containsAll(left) && attrs.containsAll(right);
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

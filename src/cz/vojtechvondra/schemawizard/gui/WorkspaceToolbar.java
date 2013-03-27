@@ -65,6 +65,7 @@ public class WorkspaceToolbar extends JToolBar {
 						AttributeModelExporter exporter = new AttributeModelExporter(gui.currentModel);
 						exporter.exportToFile(file.toPath());
 						gui.currentModelName = file.getName();
+						gui.updateWindowTitle(gui.currentModelName);
 					} catch (Exception ex) {
 						JOptionPane.showMessageDialog(new JFrame(), "Error saving schema:\n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 					}

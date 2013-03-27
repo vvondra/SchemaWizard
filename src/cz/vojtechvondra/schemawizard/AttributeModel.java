@@ -1,7 +1,9 @@
 package cz.vojtechvondra.schemawizard;
 
+import javax.naming.directory.AttributeInUseException;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Vector;
 
 /**
  * A collection of attributes and functional dependencies
@@ -89,9 +91,11 @@ public class AttributeModel {
 	public FunctionalDependency getReducedDependency(FunctionalDependency dep) {
 		FunctionalDependency dep2 = new FunctionalDependency(new HashSet<Attribute>(dep.left), new HashSet<Attribute>(dep.right));
 		HashSet<Attribute> toRemove = new HashSet<Attribute>();
+		HashSet<Attribute> leftSide = new HashSet<Attribute>(dep2.left);
 		for (Attribute a : dep2.left) {
-			if (isAttributeRedundantInDependency(a, dep2)) {
+			if (isAttributeRedundantInDependency(a, new FunctionalDependency(leftSide, dep2.right)) && !toRemove.contains(a)) {
 				toRemove.add(a);
+				leftSide.remove(a);
 			}
 		}
 

@@ -76,7 +76,7 @@ public class AddDependencyDialog extends JDialog {
 	 * @return JPanel with ComboBoxes
 	 */
 	private JPanel createComboBoxes() {
-		JPanel boxPanel = new JPanel(new GridLayout(5, 2));
+		JPanel boxPanel = new JPanel(new GridLayout(6, 2));
 		Attribute[] ats = new Attribute[gui.currentModel.attributes.size() + 1];
 		ats[0] = new EmptyAttribute();
 		int i = 1;
@@ -84,7 +84,7 @@ public class AddDependencyDialog extends JDialog {
 			ats[i++] = a;
 		}
 		Arrays.sort(ats);
-		for (i = 0; i < 5; i++) {
+		for (i = 0; i < 6; i++) {
 			for (int j = 0; j < 2; j++) {
 				JComboBox<Attribute> box = new JComboBox<Attribute>(ats);
 				boxes.add(box);
@@ -101,7 +101,7 @@ public class AddDependencyDialog extends JDialog {
 		HashSet<Attribute> left = new HashSet<Attribute>();
 		HashSet<Attribute> right = new HashSet<Attribute>();
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 2; j++) {
 				Attribute e = (Attribute) boxes.get(i * 2 + j).getSelectedItem();
 				if (!(e instanceof EmptyAttribute)) {

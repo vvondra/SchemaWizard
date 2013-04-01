@@ -121,7 +121,7 @@ public class AddDependencyDialog extends JDialog {
 			gui.currentModel.deps.add(new FunctionalDependency(left, right));
 			gui.refreshWorkspace();
 		}
-// add your code here
+
 		dispose();
 	}
 
@@ -129,7 +129,6 @@ public class AddDependencyDialog extends JDialog {
 	 * Cancel the window, throw everything away
 	 */
 	private void onCancel() {
-// add your code here if necessary
 		dispose();
 	}
 }

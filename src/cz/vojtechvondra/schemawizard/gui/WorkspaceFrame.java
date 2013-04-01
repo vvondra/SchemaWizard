@@ -296,13 +296,20 @@ public class WorkspaceFrame implements ActionListener {
 			int dialogResult = JOptionPane.showConfirmDialog(window, "This will remove attributes from left hand sides of depenedencies, are you sure?", "Warning", JOptionPane.YES_NO_OPTION);
 			if (dialogResult == JOptionPane.YES_OPTION) {
 				boolean found = false;
+				Vector<FunctionalDependency> toRemove = new Vector<FunctionalDependency>();
+				Vector<FunctionalDependency> toAdd = new Vector<FunctionalDependency>();
 				for (FunctionalDependency dep : currentModel.deps) {
 					int count = dep.left.size();
-					dep = currentModel.getReducedDependency(dep);
-					if (count > dep.left.size()) {
+					FunctionalDependency dep2 = currentModel.getReducedDependency(dep);
+					if (count > dep2.left.size()) {
+						toRemove.add(dep);
+						toAdd.add(dep2);
 						found = true;
 					}
 				}
+				currentModel.deps.removeAll(toRemove);
+				currentModel.deps.addAll(toAdd);
+
 				refreshWorkspace();
 
 				if (!found) {

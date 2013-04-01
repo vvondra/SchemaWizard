@@ -26,6 +26,11 @@ public class FunctionalDependency implements Comparable<FunctionalDependency> {
 		this.right = new HashSet<Attribute>();
 	}
 
+	/**
+	 * Creates dependency from specified attributes
+	 * @param left Attributes on left side of rule
+	 * @param right Attributes on right side of rule
+	 */
 	public FunctionalDependency(HashSet<Attribute> left, HashSet<Attribute> right) {
 		this.left = left;
 		this.right = right;
@@ -80,6 +85,11 @@ public class FunctionalDependency implements Comparable<FunctionalDependency> {
 		return toString().compareTo(o.toString());
 	}
 
+	/**
+	 * Creates a FunctionalDependency instance from the A B -> C D notation
+	 * @param s notation of dependency rule
+	 * @return instance of specified dependency
+	 */
 	public static FunctionalDependency fromString(String s) {
 		String[] parts = s.split("\\s->\\s");
 		if (parts.length != 2) {

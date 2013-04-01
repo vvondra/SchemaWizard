@@ -22,12 +22,21 @@ public class DecompositionTreeNode extends JPanel implements ActionListener {
 	 */
 	Vector<DecompositionTreeNode> children = new Vector<DecompositionTreeNode>();
 
+	/**
+	 * Subpanels with parts of decomposed relation
+	 */
 	JPanel childrenPane;
 
+	/**
+	 * List of dependencies which can be used to decompose the relation
+	 */
 	JComboBox<FunctionalDependency> dependencySelect;
 
 	JButton decomposeButton;
 
+	/**
+	 * Relation displayed in this node
+	 */
 	AttributeModel model;
 
 

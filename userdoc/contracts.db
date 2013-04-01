@@ -1,0 +1,13 @@
+v
+d
+s
+c
+q
+p
+j
+=====
+j -> s
+p j -> c
+c -> v d s q p j
+d s -> p
+p -> d

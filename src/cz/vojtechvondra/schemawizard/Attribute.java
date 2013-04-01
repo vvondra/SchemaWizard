@@ -14,6 +14,10 @@ public class Attribute implements Comparable<Attribute> {
 	 */
 	String name;
 
+	/**
+	 * Create attribute with specified name
+	 * @param name Name of atttribute
+	 */
 	public Attribute(String name) {
 		name = name.replaceAll("\\s","");
 		if (!name.matches("[A-Za-z0-9]+")) {
@@ -23,6 +27,12 @@ public class Attribute implements Comparable<Attribute> {
 		this.name = name;
 	}
 
+	/**
+	 * Helper function which sorts and pretty prints a set of attributes
+	 * Attributes are printed separated by a space
+	 * @param hs attributes to be printed
+	 * @return String representation of attribute set
+	 */
 	public static String hashSetToString(HashSet<Attribute> hs) {
 		StringBuilder keyText = new StringBuilder();
 		Attribute[] as = new Attribute[hs.size()];

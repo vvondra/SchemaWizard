@@ -15,10 +15,14 @@ public class DependencyList extends JList<FunctionalDependency> {
 		setDependencies(FunctionalDependencys);
 	}
 
-	public void setDependencies(HashSet<FunctionalDependency> FunctionalDependencys) {
-		FunctionalDependency[] as = new FunctionalDependency[FunctionalDependencys.size()];
+	/**
+	 * Sets the data model for this list from a set of dependencies
+	 * @param FunctionalDependencies Dependencies to fill list with
+	 */
+	public void setDependencies(HashSet<FunctionalDependency> FunctionalDependencies) {
+		FunctionalDependency[] as = new FunctionalDependency[FunctionalDependencies.size()];
 		int i = 0;
-		for (FunctionalDependency a : FunctionalDependencys) {
+		for (FunctionalDependency a : FunctionalDependencies) {
 			as[i++] = a;
 		}
 

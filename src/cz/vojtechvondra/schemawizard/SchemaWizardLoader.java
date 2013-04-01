@@ -4,6 +4,9 @@ import cz.vojtechvondra.schemawizard.gui.WorkspaceFrame;
 
 import javax.swing.*;
 
+/**
+ * Application entry point
+ */
 public class SchemaWizardLoader {
 
 	static public void main(String[] args) {

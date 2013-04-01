@@ -1,0 +1,13 @@
+l
+m
+j
+k
+i
+=====
+l m -> j
+l -> i
+j -> k
+j k i -> l
+j -> m
+m -> k
+l -> k

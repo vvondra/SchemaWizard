@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
+import java.util.Vector;
 
 /**
  * Main window work working with schemas
@@ -264,11 +265,14 @@ public class WorkspaceFrame implements ActionListener {
 		}
 
 		if (event.getActionCommand().equals("Find key")) {
-			HashSet<Attribute> key = currentModel.findModelKey();
+			Vector<HashSet<Attribute>> key = currentModel.findAllModelKeys();
 
 			if (key.size() > 0) {
-				String keyText = Attribute.hashSetToString(key);
-				JOptionPane.showMessageDialog(window, keyText, "Key for model", JOptionPane.INFORMATION_MESSAGE);
+				StringBuilder keyText = new StringBuilder();
+				for (HashSet<Attribute> k : key) {
+					keyText.append(Attribute.hashSetToString(k)).append("\n");
+				}
+				JOptionPane.showMessageDialog(window, keyText.toString(), "Key for model", JOptionPane.INFORMATION_MESSAGE);
 			} else {
 				JOptionPane.showMessageDialog(window, "Model does not have a key.", "Key for model", JOptionPane.INFORMATION_MESSAGE);
 			}

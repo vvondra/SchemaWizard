@@ -25,7 +25,7 @@ public class DecompositionFrame {
 		// Do not close application when closing this window
 		window.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		window.setTitle("BCNF Decomposition");
-		window.setSize(new Dimension(600, 300));
+		window.setSize(new Dimension(700, 300));
 		window.setLocation(250, 250);
 		window.setLayout(new BoxLayout(window.getContentPane(), BoxLayout.PAGE_AXIS));
 		ImageIcon icon = new ImageIcon(getClass().getResource("icon.png"));
@@ -33,7 +33,8 @@ public class DecompositionFrame {
 
 		window.add(new JLabel("Select the dependency to be used to split each field not in BCNF.", SwingConstants.LEFT));
 		JPanel rootPanel = new DecompositionTreeNode(model);
-		window.add(rootPanel);
+		JScrollPane scrollPane = new JScrollPane(rootPanel);
+		window.add(scrollPane);
 
 		window.setVisible(openWindow);
 	}
